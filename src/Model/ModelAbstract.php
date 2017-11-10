@@ -25,7 +25,9 @@ abstract class ModelAbstract implements ModelInterface
      */
     public function create(array $data): array
     {
-        return $this->repository->create($data);
+        return $this->repository->create(
+            $this->validate($data)
+        );
     }
 
     /**

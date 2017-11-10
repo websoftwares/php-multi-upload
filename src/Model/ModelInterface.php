@@ -16,7 +16,13 @@ interface ModelInterface
     public function all(): array;
 
     /**
-     * @return bool
+     * @return array
      */
-    public function validate(): bool;
+    public function validate(array $data): array;
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    public function sanitize(array $data): array;
 }

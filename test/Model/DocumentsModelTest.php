@@ -61,6 +61,30 @@ class DocumentsModelTest extends TestCase
         $this->documentsModel->create($params);
     }
 
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage Empty: []
+     */
+    public function testValidationFailsException()
+    {
+        $params =  include __DIR__ . '../../fixtures/wrong_documents.php';
+        $this->documentsModel->validate($params);
+    }
+
+
+    public function testValidationSucceeds()
+    {
+        $params =  include __DIR__ . '../../fixtures/some_wrong_documents.php';
+        $actual = $this->documentsModel->validate($params);
+        $expected = [
+            [
+                'id' => 1,
+                'filename' => 'amazing_file.php'
+            ]
+        ];
+        $this->assertEquals($expected, $actual);
+    }
+
     public function testAllSucceeds()
     {
         $expected = include __DIR__ . '../../fixtures/documents.php';
@@ -74,7 +98,7 @@ class DocumentsModelTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-        /**
+    /**
      * @expectedException PDOException
      * @expectedExceptionMessage error
      */
