@@ -2,7 +2,8 @@
 /**
  * Obviously for demonstrating purposes we can allow this kind of config files in the index.php_ini_loaded_file
  * In real life situations we should move this out of the web root
- * and have some .env file to load in the environment settings (or go fancy with injecting in run time the connection configuration)
+ * and have some .env file to load in the environment settings
+ * or go fancy with injecting in run time the connection configuration)
  */
 return [
     'db' => [
