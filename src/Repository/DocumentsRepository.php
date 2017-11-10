@@ -2,21 +2,29 @@
 declare(strict_types=1);
 namespace VC4A\Repository;
 
+use VC4A\Model\DocumentsModel;
+
 class DocumentsRepository extends RepositoryAbstract
 {
-    /**
-     * @return string
-     */
-    public function getPreparedCreateQuery(): string
+    const TABLE_NAME = 'documents';
+
+    public function getTableName(): string
     {
-        return "INSERT INTO `vc4a_upload`.`documents` (`filename`) VALUES (?)";
+        return self::TABLE_NAME;
     }
 
-    /**
-     * @return string
-     */
-    public function getPreparedAllQuery(): string
+    public function getCreateColumnNames(): array
     {
-        return "SELECT id, filename FROM documents ORDER by datestamp ASC";
+        return [
+            DocumentsModel::FILENAME
+        ];
+    }
+
+    public function getAllColumnNames(): array
+    {
+        return [
+            DocumentsModel::ID,
+            DocumentsModel::FILENAME
+        ];
     }
 }

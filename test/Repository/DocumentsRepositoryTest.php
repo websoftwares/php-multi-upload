@@ -33,7 +33,7 @@ class DocumentsRepositoryTest extends TestCase
 
         $this->pdo = $this->getMockBuilder(MockPdo::class)
             ->disableOriginalConstructor()
-            ->setMethods(['prepare','lastInsertId'])
+            ->setMethods(['prepare','lastInsertId', 'beginTransaction', 'commit'])
             ->getMock();
         $this->documentsRepository = new DocumentsRepository($this->pdo);
 
@@ -47,7 +47,7 @@ class DocumentsRepositoryTest extends TestCase
      */
     public function testAllSucceeds(array $expected)
     {
-        $sql = $this->documentsRepository::getPreparedAllQuery();
+        $sql = 'SELECT id, filename FROM documents';
 
         $statementMock = $this
             ->getMockBuilder(PDOStatement::class)
@@ -76,7 +76,7 @@ class DocumentsRepositoryTest extends TestCase
      */
     public function testAllFailsException()
     {
-        $sql = $this->documentsRepository::getPreparedAllQuery();
+        $sql = 'SELECT id, filename FROM documents';
 
         $statementMock = $this
             ->getMockBuilder(PDOStatement::class)
@@ -96,9 +96,8 @@ class DocumentsRepositoryTest extends TestCase
      */
     public function testCreateSucceeds()
     {
-        $sql = $this->documentsRepository::getPreparedCreateQuery();
-        $params[self::FILE_NAME_KEY] = $this->getFixture()[0][self::FILE_NAME_KEY];
-        $expected = $this->getFixture()[0][self::ID_KEY];
+        $sql = 'INSERT INTO documents (filename) VALUES (?), (?)';
+        $expected = $this->getFixture();
 
         $statementMock = $this
             ->getMockBuilder(PDOStatement::class)
@@ -107,17 +106,14 @@ class DocumentsRepositoryTest extends TestCase
             ->getMock();
 
         $statementMock->expects($this->once())->method('execute')
-            ->with($this->equalTo($params))
+            ->with($this->equalTo($expected))
             ->will($this->returnValue(true));
 
         $this->pdo->expects($this->once())->method('prepare')
             ->with($this->equalTo($sql))
             ->will($this->returnValue($statementMock));
 
-        $this->pdo->expects($this->once())->method('lastInsertId')
-            ->will($this->returnValue($expected));
-
-        $actual = $this->documentsRepository->create($params);
+        $actual = $this->documentsRepository->create($expected);
         $this->assertEquals($expected, $actual);
     }
 
@@ -127,8 +123,8 @@ class DocumentsRepositoryTest extends TestCase
      */
     public function testCreateFailsException()
     {
-        $sql = $this->documentsRepository::getPreparedCreateQuery();
-        $params[self::FILE_NAME_KEY] = $this->getFixture()[0][self::FILE_NAME_KEY];
+        $sql = 'INSERT INTO documents (filename) VALUES (?), (?)';
+        $params = $this->getFixture();
 
         $statementMock = $this
             ->getMockBuilder(PDOStatement::class)

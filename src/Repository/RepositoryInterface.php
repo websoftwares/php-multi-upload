@@ -14,15 +14,20 @@ interface RepositoryInterface
      * @param array $data
      * @return int
      */
-    public function create(array $data): int;
+    public function create(array $data): array;
 
     /**
      * @return string
      */
-    public function getPreparedCreateQuery(): string;
+    public function getTableName(): string;
 
     /**
-     * @return string
+     * @return array
      */
-    public function getPreparedAllQuery(): string;
+    public function getCreateColumnNames(): array;
+
+    /**
+     * @return array
+     */
+    public function getAllColumnNames(): array;
 }

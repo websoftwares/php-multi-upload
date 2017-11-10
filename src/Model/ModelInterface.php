@@ -8,7 +8,7 @@ interface ModelInterface
      * @param array $data
      * @return int
      */
-    public function create(array $data): int;
+    public function create(array $data): array;
 
     /**
      * @return array

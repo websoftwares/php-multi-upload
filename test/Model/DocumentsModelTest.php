@@ -24,7 +24,7 @@ class DocumentsModelTest extends TestCase
         $this->repository = $this
             ->getMockBuilder(RepositoryInterface::class)
             ->disableOriginalConstructor()
-            ->setMethods(['create', 'all', 'getPreparedCreateQuery', 'getPreparedAllQuery'])
+            ->setMethods(['create', 'all', 'getCreateColumnNames', 'getAllColumnNames', 'getTableName'])
             ->getMock();
 
         $this->documentsModel = new DocumentsModel($this->repository);
@@ -34,15 +34,13 @@ class DocumentsModelTest extends TestCase
 
     public function testCreateSucceeds()
     {
-        $params =  [DocumentsModel::FILENAME => 'test_file.doc'];
-        $expected = 1;
-
+        $expected = include __DIR__ . '../../fixtures/documents.php';
         $this->repository->expects($this->once())
             ->method('create')
-            ->with($this->equalTo($params))
-            ->will($this->returnValue(1));
+            ->with($this->equalTo($expected))
+            ->will($this->returnValue($expected));
 
-        $actual = $this->documentsModel->create($params);
+        $actual = $this->documentsModel->create($expected);
 
         $this->assertEquals($expected, $actual);
     }
@@ -53,7 +51,7 @@ class DocumentsModelTest extends TestCase
      */
     public function testCreateFailsException()
     {
-        $params =  [DocumentsModel::FILENAME => 'test_file.doc'];
+        $params =  [[DocumentsModel::FILENAME => 'test_file.doc']];
 
         $this->repository->expects($this->once())
             ->method('create')
@@ -82,13 +80,10 @@ class DocumentsModelTest extends TestCase
      */
     public function testAllFailsException()
     {
-        $params =  [DocumentsModel::FILENAME => 'test_file.doc'];
-
         $this->repository->expects($this->once())
-            ->method('create')
-            ->with($this->equalTo($params))
+            ->method('all')
             ->will($this->throwException(new PDOException('error')));
 
-        $this->documentsModel->create($params);
+        $this->documentsModel->all();
     }
 }

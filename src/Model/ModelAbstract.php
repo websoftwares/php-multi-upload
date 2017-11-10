@@ -23,7 +23,7 @@ abstract class ModelAbstract implements ModelInterface
      * @param array $data
      * @return array
      */
-    public function create(array $data): int
+    public function create(array $data): array
     {
         return $this->repository->create($data);
     }
