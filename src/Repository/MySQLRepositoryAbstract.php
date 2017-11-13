@@ -5,6 +5,7 @@ namespace VC4A\Repository;
 
 use PDO;
 use PDOException;
+use VC4A\Model\DocumentsModel;
 
 abstract class MySQLRepositoryAbstract implements MySQLRepositoryInterface
 {
@@ -38,11 +39,8 @@ abstract class MySQLRepositoryAbstract implements MySQLRepositoryInterface
      */
     public function create(array $data): array
     {
-
         $tableName = $this->getTableName();
         $columnNames = $this->getCreateColumnNames();
-        $dataToInsert = [];
-        array_push($dataToInsert, ...array_values($data));
 
         $rowPlaces = '(' . implode(', ', array_fill(0, count($columnNames), '?')) . ')';
         $allPlaces = implode(', ', array_fill(0, count($data), $rowPlaces));
@@ -52,6 +50,11 @@ abstract class MySQLRepositoryAbstract implements MySQLRepositoryInterface
 
         $this->pdo->beginTransaction();
         $statement = $this->pdo->prepare($sql);
+
+        $dataToInsert = [];
+        foreach ($data as $file) {
+            $dataToInsert[] = $file[DocumentsModel::FILENAME];
+        }
         $statement->execute($dataToInsert);
 
         $this->pdo->commit();

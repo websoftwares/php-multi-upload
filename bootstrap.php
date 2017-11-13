@@ -1,7 +1,7 @@
 <?php
 /*
 |--------------------------------------------------------------------------
-| Enable strict types
+| Syrict types
 |--------------------------------------------------------------------------
 */
 declare(strict_types=1);
@@ -26,6 +26,16 @@ ini_set('display_errors', '1');
 include 'vendor/autoload.php';
 /*
 |--------------------------------------------------------------------------
+| Imports
+|--------------------------------------------------------------------------
+*/
+use VC4A\Repository\DocumentsRepository;
+use VC4A\Repository\UploadRepository;
+use VC4A\Model\UploadModel;
+use VC4A\Model\DocumentsModel;
+
+/*
+|--------------------------------------------------------------------------
 | Load configuration
 |--------------------------------------------------------------------------
 */
@@ -37,6 +47,9 @@ $config = include 'config/config.php';
 */
 try {
     $pdo = new PDO(...$config['db']); // Better would be to store this into a IoC container.
-} catch(PDOException $exception) {
+} catch (PDOException $exception) {
     echo $exception->getMessage();
 }
+
+$documentsModel = new DocumentsModel(new DocumentsRepository($pdo));
+$uploadModel = new UploadModel(new UploadRepository());
