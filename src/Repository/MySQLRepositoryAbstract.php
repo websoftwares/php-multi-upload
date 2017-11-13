@@ -6,7 +6,7 @@ namespace VC4A\Repository;
 use PDO;
 use PDOException;
 
-abstract class RepositoryAbstract implements RepositoryInterface
+abstract class MySQLRepositoryAbstract implements MySQLRepositoryInterface
 {
     /**
      * @param PDO $pdo

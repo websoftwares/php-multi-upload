@@ -4,7 +4,7 @@ namespace VC4A\Repository;
 
 use VC4A\Model\DocumentsModel;
 
-class DocumentsRepository extends RepositoryAbstract
+class DocumentsRepository extends MySQLRepositoryAbstract
 {
     const TABLE_NAME = 'documents';
 
