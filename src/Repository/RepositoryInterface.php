@@ -16,18 +16,4 @@ interface RepositoryInterface
      */
     public function create(array $data): array;
 
-    /**
-     * @return string
-     */
-    public function getTableName(): string;
-
-    /**
-     * @return array
-     */
-    public function getCreateColumnNames(): array;
-
-    /**
-     * @return array
-     */
-    public function getAllColumnNames(): array;
 }
