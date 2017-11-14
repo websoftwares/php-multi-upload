@@ -1,6 +1,6 @@
 # php-multi-upload
 
-##System requirements
+## System requirements
 
 - PHP 7+
 - MySQL 5.6+
