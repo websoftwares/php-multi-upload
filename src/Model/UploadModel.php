@@ -11,7 +11,7 @@ class UploadModel extends ModelAbstract
     const FILES_ERROR_KEY = 'error';
     const FILES_TEMP_NAME_KEY = 'tmp_name';
     const FILES_NAME_KEY = 'name';
-    const UPLOADS_DIR = __DIR__ . '/../../uploads/';
+
 
     const UPLOAD_ERR_OK_MESSAGE = 'There is no error, the file uploaded with success';
     const UPLOAD_ERR_INI_SIZE_MESSAGE = 'The uploaded file exceeds the upload_max_filesize directive in php.ini';
@@ -71,7 +71,7 @@ class UploadModel extends ModelAbstract
             if ($error === UPLOAD_ERR_OK) {
                 $file = [];
                 $file[] = $data[self::FILES_TEMP_NAME_KEY][$key];
-                $file[] = self::UPLOADS_DIR . basename($data[self::FILES_NAME_KEY][$key]);
+                $file[] = $data[self::FILES_NAME_KEY][$key];
 
                 $sanitizedData[] = $file;
 

@@ -106,7 +106,6 @@ class DocumentsRepositoryTest extends TestCase
             ->getMock();
 
         $statementMock->expects($this->once())->method('execute')
-            ->with($this->equalTo($expected))
             ->will($this->returnValue(true));
 
         $this->pdo->expects($this->once())->method('prepare')

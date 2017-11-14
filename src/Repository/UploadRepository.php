@@ -7,6 +7,7 @@ use Exception;
 class UploadRepository implements RepositoryInterface
 {
     const UPLOAD_ERROR_MESSAGE = 'Can not upload file, context: %s';
+    const UPLOADS_DIR = __DIR__ . '/../../uploads/';
 
     /**
      * @param array $data
@@ -28,7 +29,7 @@ class UploadRepository implements RepositoryInterface
      */
     protected function moveUploadedFile(string $from, string $to): bool
     {
-        return move_uploaded_file($from, $to);
+        return move_uploaded_file($from, self::UPLOADS_DIR . basename($to));
     }
 
     public function all(): array
