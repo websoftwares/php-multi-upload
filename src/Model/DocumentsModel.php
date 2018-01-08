@@ -10,7 +10,9 @@ class DocumentsModel extends ModelAbstract
     const FILENAME = 'filename';
 
     /**
+     * @param array $data
      * @return array
+     * @throws InvalidArgumentException
      */
     public function validate(array $data): array
     {
