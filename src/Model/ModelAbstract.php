@@ -31,7 +31,6 @@ abstract class ModelAbstract implements ModelInterface
     }
 
     /**
-     * @param array $data
      * @return array
      */
     public function all(): array
