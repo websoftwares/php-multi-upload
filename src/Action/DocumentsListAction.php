@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace VC4A\Action;
 
+use Exception;
 use VC4A\Model\DocumentsModel;
 
 class DocumentsListAction

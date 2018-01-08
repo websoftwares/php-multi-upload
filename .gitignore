@@ -2,3 +2,4 @@
 .vscode/
 /uploads/*
 !/uploads/.gitkeep
+.idea/
