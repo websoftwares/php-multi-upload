@@ -32,6 +32,10 @@ class DocumentsModelTest extends TestCase
         parent::setUp();
     }
 
+    public function testFailsOk() {
+        $this->assertFalse(true);
+    }
+
     public function testCreateSucceeds()
     {
         $expected = include __DIR__ . '../../fixtures/documents.php';
