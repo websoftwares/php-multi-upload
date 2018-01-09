@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace VC4A\Repository;
 
 use Exception;
+use RuntimeException;
 
 class UploadRepository implements RepositoryInterface
 {
@@ -12,6 +13,7 @@ class UploadRepository implements RepositoryInterface
     /**
      * @param array $data
      * @return array
+     * @throws Exception
      */
     public function create(array $data): array
     {
@@ -32,8 +34,12 @@ class UploadRepository implements RepositoryInterface
         return move_uploaded_file($from, self::UPLOADS_DIR . basename($to));
     }
 
+    /**
+     * @return array
+     * @throws RuntimeException
+     */
     public function all(): array
     {
-        throw new Exception('Method not implemented');
+        throw new RuntimeException('Method not implemented');
     }
 }
