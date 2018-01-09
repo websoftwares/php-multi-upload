@@ -3,7 +3,6 @@ declare(strict_types=1);
 namespace VC4A\Model;
 
 use InvalidArgumentException;
-use VC4A\Model\DocumentsModel;
 
 class UploadModel extends ModelAbstract
 {
@@ -44,6 +43,7 @@ class UploadModel extends ModelAbstract
 
     /**
      * @return array
+     * @throws InvalidArgumentException
      */
     public function validate(array $data): array
     {
@@ -60,6 +60,7 @@ class UploadModel extends ModelAbstract
     /**
      * @param array $data
      * @return array
+     * @throws InvalidArgumentException
      */
     public function sanitize(array $data) : array
     {
