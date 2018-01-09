@@ -9,6 +9,9 @@ use VC4A\Model\DocumentsModel;
 
 abstract class MySQLRepositoryAbstract implements MySQLRepositoryInterface
 {
+    /** @var PDO */
+    private $pdo;
+
     /**
      * @param PDO $pdo
      */
